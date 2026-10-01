@@ -1,7 +1,13 @@
-
 import os
 from dotenv import load_dotenv
 
-load_dotenv()    #loads the values from .env
+load_dotenv()
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")    #retrieves the API key
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+if not OPENAI_API_KEY:
+    try:
+        import streamlit as st
+        OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+    except Exception:
+        OPENAI_API_KEY = None
